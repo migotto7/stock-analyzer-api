@@ -5,7 +5,27 @@ export async function getStock(req, res) {
     const ticker = req.params.ticker.toUpperCase();
     try {
         const data = await fetchStock(ticker);
-        res.json(data);
+
+        const quote = data.results[0];
+        console.log(quote)
+
+        res.json({
+            ticker: quote.symbol,
+            shortName: quote.shortName,
+            longName: quote.longName,
+            logo: quote.logourl,
+            regularMarketPrice: quote.regularMarketPrice,
+            regularMarketChange: quote.regularMarketChange,
+            regularMarketChangePercent: quote.regularMarketChangePercent,
+            regularMarketDayHigh: quote.regularMarketDayHigh,
+            regularMarketDayLow: quote.regularMarketDayLow,
+            fiftyTwoWeekLow: quote.fiftyTwoWeekLow,
+            fiftyTwoWeekHigh: quote.fiftyTwoWeekHigh,
+            marketCap: quote.marketCap,
+            priceEarnings: quote.priceEarnings,
+            earningsPerShare: quote.earningsPerShare,
+            historicalDataPrice: quote.historicalDataPrice
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

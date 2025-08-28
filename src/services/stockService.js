@@ -10,7 +10,7 @@ export async function fetchStock(ticker) {
         return cache[ticker].data;
     }
 
-    const url = `https://brapi.dev/api/quote/${ticker}?token=${process.env.BRAPI_KEY}`;
+    const url = `https://brapi.dev/api/quote/${ticker}?token=${process.env.BRAPI_KEY}&fundamental=true&range=1mo&interval=1d`;
     const resp = await fetch(url);
 
     if (!resp.ok) throw new Error("Erro ao buscar dados da ação");
