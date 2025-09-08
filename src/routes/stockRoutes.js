@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getStock, searchStocks } from "../controllers/stockController.js"
+import { getStock, searchStocks, searchTop10Stocks } from "../controllers/stockController.js"
 
 const router = Router();
 
@@ -8,5 +8,7 @@ router.get("/acoes/:ticker", getStock);
 
 // Rota para autocomplete (sugestão de tickers)
 router.get("/search/:query", searchStocks);
+
+router.get("/search/top", searchTop10Stocks);
 
 export default router;

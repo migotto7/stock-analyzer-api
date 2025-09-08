@@ -24,7 +24,17 @@ export async function fetchStock(ticker) {
 
 // Função para buscar sugestões de tickers
 export async function fetchSearch(query) {
-    const url = `https://brapi.dev/api/quote/list?search=${query}&token=${process.env.BRAPI_KEY}`;
+    const url = `https://brapi.dev/api/quote/list?search=${query}&token=${process.env.BRAPI_KEY}&type=stock`;
+    const resp = await fetch(url);
+
+    if(!resp.ok) throw new Error("Erro ao buscar sugestões");
+
+    return resp.json();
+}
+
+// Função para buscar top 10 tickers
+export async function fetchSearchTop10() {
+    const url = `https://brapi.dev/api/quote/list?type=stock&sortBy=volume&sortOrder=desc&limit=20&page=1&token=${process.env.BRAPI_KEY}`
     const resp = await fetch(url);
 
     if(!resp.ok) throw new Error("Erro ao buscar sugestões");
