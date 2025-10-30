@@ -2,11 +2,11 @@ import { fetchStock, fetchSearch, fetchSearchTop10 } from "../services/stockServ
 
 // Buscar uma ação específica
 export async function getStock(req, res) {
-    const ticker = req.params.ticker.toUpperCase();
     try {
-        const data = await fetchStock(ticker);
+        const stockTicker = req.params.ticker.toUpperCase();
+        const stock = await fetchStock(stockTicker);
 
-        const quote = data.results[0];
+        const quote = stock.results[0];
 
         res.json({
             ticker: quote.symbol,
@@ -31,10 +31,10 @@ export async function getStock(req, res) {
 }
 
 export async function searchStocks(req, res) {
-    const query = req.params.query.toUpperCase();
     try {
-        const data = await fetchSearch(query);
-        res.json(data)
+        const query = req.params.query.toUpperCase();
+        const searchedStocks = await fetchSearch(query);
+        res.json(searchedStocks)
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -43,9 +43,9 @@ export async function searchStocks(req, res) {
 export async function searchTop10Stocks(req, res) {
     try {
         const url = `https://brapi.dev/api/quote/list?sortBy=volume&sortOrder=desc&limit=20&page=1&token=${process.env.BRAPI_KEY}`
-        const data = await fetch(url);
+        const top10Stocks = await fetch(url);
         //const quote = data.stocks
-        res.json(data);
+        res.json(top10Stocks);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
