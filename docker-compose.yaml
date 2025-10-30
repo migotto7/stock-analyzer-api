@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: api_ibo_stock_analyzer
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+  db:
+    image: postgres
+    container_name: db_ibo_stock_analyzer
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
