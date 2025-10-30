@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "jest": "^29.6.1",
-    "supertest": "^6.3.3",
+    "supertest": "^7.1.4",
     "k6": "^0.0.0",
     "nodemon": "^3.1.10"
   }
