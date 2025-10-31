@@ -44,7 +44,6 @@ export async function searchTop10Stocks(req, res) {
     try {
         const url = `https://brapi.dev/api/quote/list?sortBy=volume&sortOrder=desc&limit=20&page=1&token=${process.env.BRAPI_KEY}`
         const top10Stocks = await fetch(url);
-        //const quote = data.stocks
         res.json(top10Stocks);
     } catch (err) {
         res.status(500).json({ error: err.message });

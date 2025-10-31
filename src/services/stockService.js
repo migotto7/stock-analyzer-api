@@ -1,14 +1,8 @@
 import fetch from "node-fetch";
 
-const cache = {};
-
 // Função para buscar dados de uma ação
 export async function fetchStock(ticker) {
     const now = Date.now();
-
-    if (cache[ticker] && now - cache[ticker].timestamp < 300000) {
-        return cache[ticker].data;
-    }
 
     const url = `https://brapi.dev/api/quote/${ticker}?token=${process.env.BRAPI_KEY}&fundamental=true&range=1mo&interval=1d`;
     const stockResponse = await fetch(url);
@@ -16,8 +10,6 @@ export async function fetchStock(ticker) {
     if (!stockResponse.ok) throw new Error("Erro ao buscar dados da ação");
 
     const stock = await stockResponse.json();
-
-    cache[ticker] = { stock, timestamp: now };
 
     return stock;
 }
